@@ -18,7 +18,7 @@ cd Identification-of-agricultural-diseases-and-pests
 The code requires
 * Python 3.6 or higher 
 * PyTorch 1.0 or higher 
-and the requirements listed as follow:
+and the requirements listed are as follow:
 * pandas
 * numpy
 * torch
