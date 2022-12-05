@@ -28,3 +28,34 @@ and the requirements listed as follow:
 
 ## Step 4: Download the Dataset
 In order to download the dataset, download it in: https://pan.baidu.com/s/1VPm3oV4wi9mWD5J2gyaHtg?pwd=6jq7. The key code is: 6jq7 
+
+# Repository structure
+```
+├── Identification-of-agricultural-diseases-and-pests
+│   ├── big_model
+│      ├── mobilenet
+│         ├── mobilenet_v2.py
+│      ├── model_data
+│         ├── efficientnet-b3-5fb5a3c3.pth
+│         ├── mobilenet_v2-b0353104.pth
+│      ├── class_indices.json
+│      ├── Demo_Efficientnet.py
+│      ├── ECAAttention.py
+│      ├── efficientnet.py
+│      ├── main.py
+│      ├── model.py
+│      ├── model_two.py
+│      ├── split_train_val.py
+│      ├── train.py
+│      ├── vgg16.py
+│   ├── small_model
+│      ├── mobilenet
+│         ├── mobilenet_v2.py
+│      ├── class_indices.json
+│      ├── ECAAttention.py
+│      ├── efficientnet.py
+│      ├── model.py
+│      ├── model_two.py
+│      ├── train.py
+├── README.md
+```
