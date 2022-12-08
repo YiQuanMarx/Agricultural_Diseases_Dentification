@@ -16,13 +16,12 @@ cd Identification-of-agricultural-diseases-and-pests
 ```
 ## Step 3: Create a Python Environment
 The code requires
-* Python 3.6 or higher 
-* PyTorch 1.0 or higher 
+* [PyTorch](https://github.com/pytorch/vision):The linker is the corresponding torchvision versions and supported Python versions.We Use torch version 1.4.0.
+* torchvision:version->0.4.0~0.7.0.We use version 0.5.0.
+* Python 3.6 
 and the requirements listed are as follow:
 * pandas
 * numpy
-* torch
-* torchvision
 * seaborn 
 * tqdm
 
