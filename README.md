@@ -12,7 +12,7 @@ git clone https://github.com/YiQuanMarx/Agricultural_Diseases_Dentification.git
 ```
 and then move into the project directory with
 ```
-cd Agricultural_Diseases_Dentification
+cd Identification-of-agricultural-diseases-and-pests
 ```
 ## Step 3: Create a Python Environment
 The code requires
