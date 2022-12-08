@@ -8,7 +8,7 @@ Go to the [Anaconda Website](https://www.anaconda.com/products/distribution) and
 ### Step 2: Clone the Repository
 In order to clone the repository, use the following git command in your command line.
 ```
-git clone https://github.com/YiQuanMarx/dentification-of-agricultural-diseases-and-pests-.git
+git clone https://github.com/YiQuanMarx/Agricultural_Diseases_Dentification.git
 ```
 and then move into the project directory with
 ```
@@ -16,8 +16,8 @@ cd Identification-of-agricultural-diseases-and-pests
 ```
 ## Step 3: Create a Python Environment
 The code requires
-* [PyTorch](https://github.com/pytorch/vision):The linker is the corresponding torchvision versions and supported Python versions.We Use torch version 1.4.0.
-* torchvision:version->0.4.0~0.7.0.We use version 0.5.0.
+* [PyTorch](https://github.com/pytorch/vision):The linker is the corresponding torchvision versions and supported Python versions.The code use torch version 1.4.0.
+* torchvision:version->0.4.0~0.7.0.And the code use version 0.5.0.
 * Python 3.6 
 and the requirements listed are as follow:
 * pandas
