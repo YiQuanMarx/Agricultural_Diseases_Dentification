@@ -12,7 +12,7 @@ git clone https://github.com/YiQuanMarx/Agricultural_Diseases_Dentification.git
 ```
 and then move into the project directory with
 ```
-cd Identification-of-agricultural-diseases-and-pests
+cd Agricultural_Diseases_Dentification
 ```
 ## Step 3: Create a Python Environment
 The code requires
@@ -30,7 +30,7 @@ In order to download the dataset, download it in: https://pan.baidu.com/s/1VPm3o
 
 # Repository structure
 ```
-├── Identification-of-agricultural-diseases-and-pests
+├── Agricultural_Diseases_Dentification
 │   ├── big_model
 │      ├── mobilenet
 │         ├── mobilenet_v2.py
