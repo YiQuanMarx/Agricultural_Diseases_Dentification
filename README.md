@@ -15,18 +15,23 @@ and then move into the project directory with
 cd Identification-of-agricultural-diseases-and-pests
 ```
 ## Step 3: Create a Python Environment
-The code requires
-* [PyTorch](https://github.com/pytorch/vision):The linker is the corresponding torchvision versions and supported Python versions.The code use torch version 1.4.0.
-* torchvision:version->0.4.0~0.7.0.And the code use version 0.5.0.
-* Python 3.6 
-and the requirements listed are as follow:
-* pandas
-* numpy  
-* seaborn   
-* tqdm  
 
-## Step 4: Download the Dataset
+The code requires
+
+* Cuda:10.1
+
+* Python 3.8.1
+
+* [PyTorch](https://github.com/pytorch/vision):The linker is the corresponding torchvision versions and supported Python versions.The code use torch version 1.5.1
+
+* torchvision:version->0.4.0~0.7.0.And the code use version 0.6.1.You can use the version information below as a download reference.
+
+  ![imag-1](./pic/pic.png)
+
+### Step 4: Download the Dataset
+
 In order to download the dataset, download it in: https://pan.baidu.com/s/1VPm3oV4wi9mWD5J2gyaHtg?pwd=6jq7. The key code is: 6jq7   
+
 ### big_data
 dm = downy mildew, 霜霉病  
 pm = powdery mildew, 白粉病  
