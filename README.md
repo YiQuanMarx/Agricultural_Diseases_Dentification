@@ -93,5 +93,6 @@ Downy 黄瓜霜霉病
 │      ├── model.py
 │      ├── model_two.py
 │      ├── train.py
+├── pic
 ├── README.md
 ```
