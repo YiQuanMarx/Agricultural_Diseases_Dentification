@@ -27,6 +27,37 @@ and the requirements listed are as follow:
 
 ## Step 4: Download the Dataset
 In order to download the dataset, download it in: https://pan.baidu.com/s/1VPm3oV4wi9mWD5J2gyaHtg?pwd=6jq7. The key code is: 6jq7 
+### big_data
+dm = downy mildew, 霜霉病
+pm = powdery mildew, 白粉病
+als = bacterial angular leaf spot, 细菌性角斑病
+tls = target leaf spot, 靶斑病
+gsb = gummy stem blight, ，蔓枯病
+fw = fusarium wilt, 枯萎病
+an = anthracnose, 炭疽病
+
+霜霉病 - http://www.nongyisheng.com/nongzi?id=uoktntj
+白粉病 - http://www.nongyisheng.com/nongzi?id=uizygcc
+细菌性角斑病 - http://www.nongyisheng.com/nongzi?id=uizezsy
+靶斑病 - http://www.nongyisheng.com/nongzi?id=uuwhllf
+蔓枯病 - http://www.nongyisheng.com/nongzi?id=uoktbkk
+枯萎病 - http://www.nongyisheng.com/nongzi?id=uokqdkq
+炭疽病 - http://www.nongyisheng.com/nongzi?id=uuwhrhl
+
+文件命名
+qid_#.jpg
+qid是每个问题在农医生的数据库里的id， 每个问题有0-6张照片不等。
+
+网站：
+"http://www.nongyisheng.com/p/detail.html?qid=" + qid
+json 数据网站
+"http://www.nongyisheng.com/question/detail?fr=pc&qid=" + qid + "&rn=1"
+### small_data
+Target 黄瓜靶斑病
+Spot 黄瓜细菌性角斑病
+Powdery 黄瓜白粉病
+Downy 黄瓜霜霉病
+
 
 # Repository structure
 ```
