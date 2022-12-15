@@ -69,13 +69,13 @@ Downy 黄瓜霜霉病
 ```
 ├── Agricultural_Diseases_Dentification
 │   ├── Merge_model
-│   	 ├── mobilenet
-│      		├── mobilenet_v2.py
-│   	 ├── model_data
+│      ├── mobilenet
+│         ├── mobilenet_v2.py
+│      ├── model_data
 │         ├── efficientnet-b3-5fb5a3c3.pth
 │         ├── efficientnet-b7-dcc49843.pth
 │         ├── mobilenet_v2-b0353104.pth
-│   	 ├── log
+│      ├── log
 │      ├── class_indices.json
 │      ├── Demo_Efficientnet.py
 │      ├── ECAAttention.py
