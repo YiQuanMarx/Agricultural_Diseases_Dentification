@@ -5,3 +5,4 @@ Identification-of-agricultural-diseases-and-pests/big_model/model_data/efficient
 .DS_Store
 .DS_Store
 *.jpg
+Test/Merge_model/model_data/efficientnet-b7-dcc49843.pth
