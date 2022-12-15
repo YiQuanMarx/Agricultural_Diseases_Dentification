@@ -68,12 +68,14 @@ Downy 黄瓜霜霉病
 # Repository structure
 ```
 ├── Agricultural_Diseases_Dentification
-│   ├── mobilenet
-│      ├── mobilenet_v2.py
-│   ├── model_data
+│   ├── Merge_model
+│   	 ├── mobilenet
+│      		├── mobilenet_v2.py
+│   	 ├── model_data
 │         ├── efficientnet-b3-5fb5a3c3.pth
 │         ├── efficientnet-b7-dcc49843.pth
 │         ├── mobilenet_v2-b0353104.pth
+│   	 ├── log
 │      ├── class_indices.json
 │      ├── Demo_Efficientnet.py
 │      ├── ECAAttention.py
@@ -83,16 +85,8 @@ Downy 黄瓜霜霉病
 │      ├── model_two.py
 │      ├── split_train_val.py
 │      ├── train.py
-│      ├── vgg16.py
-│   ├── small_model
-│      ├── mobilenet
-│         
-│   ├── class_indices.json
-│   ├── ECAAttention.py
-│   ├── efficientnet.py
-│   ├── model.py
-│   ├── model_two.py
-│   ├── train.py
-├── pic
+│   ├── All_data
+│      ├── train
+│      ├── val
 ├── README.md
 ```
