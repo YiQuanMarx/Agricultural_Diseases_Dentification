@@ -10,8 +10,10 @@ import torch.nn as nn
 import torch.optim as optim
 from torchvision import transforms, datasets
 from tqdm import tqdm
+# import pdb
 import seaborn as sn
 from matplotlib import pyplot as plt
+import numpy as np
 
 from model import Model
 from model_two import Model_two
@@ -38,13 +40,13 @@ def main():
     print("using {} device.".format(device))
 
     batch_size = 6
-    epochs = 5
+    epochs = 300
 
     # 数据增强
     """
     
     """
-
+    # pdb.set_trace()
     data_transform = {
         "train": transforms.Compose([transforms.Resize((448,448)),        #224 transforms.RandomResizedCrop(224)
                                      #transforms.RandomHorizontalFlip(),
@@ -55,24 +57,28 @@ def main():
                                    transforms.ToTensor(),
                                    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])])}
 
-    #data_root = os.path.abspath(os.path.join(os.getcwd(), "../.."))  # get data root path
-    #image_path = os.path.join(data_root, "Data", "data_set")  # flower data set path
-    image_path = os.path.join(r'../All_data')
+    image_path = os.path.join(r'../data')
+    # pdb.set_trace()
     assert os.path.exists(image_path), "{} path does not exist.".format(image_path)
     train_dataset = datasets.ImageFolder(root=os.path.join(image_path, "train"),
                                          transform=data_transform["train"])
     train_num = len(train_dataset)
+    # pdb.set_trace()
 
     flower_list = train_dataset.class_to_idx
+    # pdb.set_trace()
     cla_dict = dict((val, key) for key, val in flower_list.items())
+    # pdb.set_trace()
     # write dict into json file
     json_str = json.dumps(cla_dict, indent=4)
     with open('class_indices.json', 'w') as json_file:
         json_file.write(json_str)
-
+    
+    # pdb.set_trace()
     nw = min([os.cpu_count(), batch_size if batch_size > 1 else 0, 8])  # number of workers --- 线程数
     print('Using {} dataloader workers every process'.format(nw))
-
+    
+    # pdb.set_trace()
     train_loader = torch.utils.data.DataLoader(train_dataset,                               # 加载数据集
                                                batch_size=batch_size, shuffle=True,
                                                num_workers=nw)
@@ -83,6 +89,7 @@ def main():
     validate_loader = torch.utils.data.DataLoader(validate_dataset,
                                                   batch_size=batch_size, shuffle=False,
                                                   num_workers=nw)
+    # pdb.set_trace()
 
     print("using {} images for training, {} images for validation.".format(train_num,
                                                                            val_num))
@@ -105,6 +112,7 @@ def main():
     train_steps = len(train_loader)
     train_loss = []
     val_acc = []
+    # pdb.set_trace()
     for epoch in range(epochs):         # 开始训练
         # train
         net.train()
@@ -150,21 +158,6 @@ def main():
         val_accurate = acc / val_num + temp                   # 计算验证集精度
         val_acc.append(val_accurate)
 
-        # Attack2Index = {"0": "foggy",
-        #                 "1": "rainy",
-        #                 "2": "snowy",
-        #                 "3": "sunny"}
-        # df_cm = pd.DataFrame(conf_matrixs.numpy(),
-        #                      index=[i for i in list(Attack2Index.values())],
-        #                      columns=[i for i in list(Attack2Index.values())])
-        # plt.figure(figsize=(20, 10))
-        # plt.tick_params(labelsize=20)
-        # sn.set(font_scale=1.5)
-        # sn.heatmap(df_cm, annot=True,fmt=".20g" , cmap="BuPu")
-        # plt.savefig('confu_' + str(epoch) + '.png')
-        # # plt.show()
-        # plt.close()
-
         print('[epoch %d] train_loss: %.3f  val_accuracy: %.3f' %
               (epoch + 1, running_loss / train_steps, val_accurate))
 
@@ -172,6 +165,14 @@ def main():
             best_acc = val_accurate
             torch.save(net.state_dict(), osp.join(model_save_path,time_for_file()+'_'+str(epoch-1)+'.pth'))       # 保存权重文件
             print_log(f'[epoch {epoch+1}] train_loss: {running_loss / train_steps:.3f}  val_accuracy: {val_accurate:.3f}',log)
+        
+        log_loss=open(osp.join(log_save_root_path, time_for_file()+"_train_loss.txt"),
+               'w')
+        log_acc=open(osp.join(log_save_root_path, time_for_file()+"_val_acc.txt"),
+               'w')
+        print_log(','.join(str(x) for x in train_loss),log_loss)
+        print_log(','.join(str(x) for x in val_acc),log_acc)
+
 
         # 绘制损失曲线和精度曲线
         if epoch == (epochs -1):

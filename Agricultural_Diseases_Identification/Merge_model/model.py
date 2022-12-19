@@ -27,6 +27,7 @@ class Model(nn.Module):
         self.fc = nn.Linear(in_features=2816,out_features=7)        # b3 : 2816  b7: 2560 + 1280 = 3840
 
     def forward(self,input):
+        # pdb.set_trace()
         # 将图像进行对半分
         x_1 = input[:,:,:224,:]
         x_2 = input[:,:,224:,:]
@@ -49,6 +50,7 @@ class Model(nn.Module):
         out = out.flatten(start_dim=1)
         out = self.dropout(out)
         out = self.fc(out)                          # 全连接层
+        # pdb.set_trace()
 
         return out
 
