@@ -35,12 +35,26 @@ def time_for_file():
     ISOTIMEFORMAT = '%d-%h-at-%H-%M-%S'
     return '{}'.format(time.strftime(ISOTIMEFORMAT, time.gmtime(time.time())))
 
+def l1_regularization(model, l1_alpha):
+    l1_loss = []
+    for module in model.modules():
+        if type(module) is nn.BatchNorm2d:
+            l1_loss.append(torch.abs(module.weight).sum())
+    return l1_alpha * sum(l1_loss)
+
+def l2_regularization(model, l2_alpha):
+    l2_loss = []
+    for module in model.modules():
+        if type(module) is nn.Conv2d:
+            l2_loss.append((module.weight ** 2).sum() / 2.0)
+    return l2_alpha * sum(l2_loss)
+
 def main():
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")     # 判断设备
     print("using {} device.".format(device))
 
     batch_size = 6
-    epochs = 300
+    epochs = 150
 
     # 数据增强
     """
@@ -106,12 +120,15 @@ def main():
 
     # construct an optimizer
     params = [p for p in net.parameters() if p.requires_grad]
-    optimizer = optim.ASGD(params, lr=0.001)
+    # 加了l2正则化
+    optimizer = optim.Adam(params, lr=0.001,weight_decay=0.01)
 
     best_acc = 0.0
     train_steps = len(train_loader)
     train_loss = []
+    train_acc=[]
     val_acc = []
+    val_loss=[]
     # pdb.set_trace()
     for epoch in range(epochs):         # 开始训练
         # train
@@ -125,6 +142,8 @@ def main():
             loss = loss_function(logits, labels.to(device))     # 计算损失
 
             loss.backward()
+            # 正则化
+            l1_regularization(net,0.1)
             optimizer.step()
 
             # print statistics
