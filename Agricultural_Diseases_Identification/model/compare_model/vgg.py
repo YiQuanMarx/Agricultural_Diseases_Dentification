@@ -3,13 +3,12 @@ import os
 import os.path as osp
 import json
 import random
-
+from torchvision import models
 import pandas as pd
 import torch
 import torch.nn as nn
 import torch.optim as optim
 from torchvision import transforms, datasets
-from torchvision import models
 from tqdm import tqdm
 # import pdb
 import seaborn as sn
@@ -21,8 +20,9 @@ import numpy as np
 
 import time
 
-log_save_root_path = r"../log"
-model_save_path = r'../log'
+
+log_save_root_path = r"../log/vgg"
+model_save_path = r'../log/vgg'
 
 
 def print_log(print_string, log):
@@ -33,7 +33,7 @@ def print_log(print_string, log):
 
 
 def time_for_file():
-    ISOTIMEFORMAT = '%d-%h-at-%H-%M-%S'
+    ISOTIMEFORMAT = '%d-%h-%H-%M-%S'
     return '{}'.format(time.strftime(ISOTIMEFORMAT, time.gmtime(time.time())))
 
 def l1_regularization(model, l1_alpha):
@@ -108,18 +108,16 @@ def main():
 
     print("using {} images for training, {} images for validation.".format(train_num,
                                                                            val_num))
-    log = open(osp.join(log_save_root_path, time_for_file()+".txt"),
-               'w')
+    log = open(osp.join(log_save_root_path, time_for_file()+".txt"),'w')
 
     # create model
-    net = models.resnet50(pretrained=True)      # 三分支
-    net.fc=nn.Linear(in_features=net.fc.in_features,out_features=7)
-    
-    # net = Model_two()   # 二分支
+    net = models.vgg19(pretrained=True)      # 三分支
+    net.fc=nn.Linear(in_features=4096,out_features=7)
     net.to(device)
 
     # define loss function
     loss_function = nn.CrossEntropyLoss()
+    # loss_function= torch.nn.NLLLoss()
 
     # construct an optimizer
     params = [p for p in net.parameters() if p.requires_grad]
@@ -199,13 +197,13 @@ def main():
             torch.save(net.state_dict(), osp.join(model_save_path,time_for_file()+'_'+str(epoch-1)+'.pth'))       # 保存权重文件
             print_log(f'[epoch {epoch+1}] train_loss: {running_loss / train_steps:.3f}  val_accuracy: {val_accurate:.3f}',log)
         
-        log_train_loss=open(osp.join(log_save_root_path, time_for_file()+"_resnet_train_loss.txt"),
+        log_train_loss=open(osp.join(log_save_root_path, time_for_file()+"_vgg_train_loss.txt"),
                'w')
-        log_train_acc=open(osp.join(log_save_root_path, time_for_file()+"_resnet_train_acc.txt"),
+        log_train_acc=open(osp.join(log_save_root_path, time_for_file()+"_vgg_train_acc.txt"),
                'w')
-        log_val_loss=open(osp.join(log_save_root_path, time_for_file()+"_resnet_val_loss.txt"),
+        log_val_loss=open(osp.join(log_save_root_path, time_for_file()+"_vgg_loss.txt"),
                'w')
-        log_val_acc=open(osp.join(log_save_root_path, time_for_file()+"_resnet_val_acc.txt"),
+        log_val_acc=open(osp.join(log_save_root_path, time_for_file()+"_vgg_val_acc.txt"),
                'w')
         print_log(','.join(str(x) for x in train_loss),log_train_loss)
         print_log(','.join(str(x) for x in train_acc),log_train_acc)
