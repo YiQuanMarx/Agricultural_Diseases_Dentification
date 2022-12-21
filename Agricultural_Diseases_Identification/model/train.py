@@ -54,7 +54,7 @@ def main():
     print("using {} device.".format(device))
 
     batch_size = 6
-    epochs = 150
+    epochs = 300
 
     # 数据增强
     """
@@ -121,7 +121,11 @@ def main():
     # construct an optimizer
     params = [p for p in net.parameters() if p.requires_grad]
     # 加了l2正则化
-    optimizer = optim.Adam(params, lr=0.001,weight_decay=0.01)
+    # optimizer = optim.RMSprop(params, lr=0.001,weight_decay=0.01)
+    ############################################## 
+    # 可修改：1.optim:优化器  2.lr 3.l2正则weight_decay
+    # 可修改4，5见model.py
+    optimizer = optim.ASGD(params, lr=0.001,weight_decay=0.01)
 
     best_acc = 0.0
     train_steps = len(train_loader)
@@ -133,6 +137,7 @@ def main():
     for epoch in range(epochs):         # 开始训练
         # train
         net.train()
+        acc_train = 0.0 
         running_loss = 0.0
         train_bar = tqdm(train_loader)
         for step, data in enumerate(train_bar):     # 遍历数据集
@@ -140,10 +145,12 @@ def main():
             optimizer.zero_grad()
             logits = net(images.to(device))
             loss = loss_function(logits, labels.to(device))     # 计算损失
+            predict=torch.max(logits,dim=1)[1]
+            acc_train+=torch.eq(predict,labels.to(device)).sum().item()
 
             loss.backward()
             # 正则化
-            l1_regularization(net,0.1)
+            l1_regularization(net,0.01)
             optimizer.step()
 
             # print statistics
@@ -153,10 +160,12 @@ def main():
                                                                      epochs,
                                                                      loss)
         train_loss.append(running_loss)
+        train_acc.append(acc_train/train_num)
 
         # validate --- 验证集
         net.eval()
         acc = 0.0  # accumulate accurate number / epoch
+        value_loss= 0.0
         conf_matrix = torch.zeros(4, 4)  # 设置类别
         temp = random.uniform(0.2,0.25)
         with torch.no_grad():
@@ -164,11 +173,12 @@ def main():
             for val_data in val_bar:
                 val_images, val_labels = val_data
                 outputs = net(val_images.to(device))
-                # loss = loss_function(outputs, test_labels)
+                loss = loss_function(outputs, val_labels.to(device))
                 predict_y = torch.max(outputs, dim=1)[1]
                 acc += torch.eq(predict_y, val_labels.to(device)).sum().item()
 
                 #conf_matrixs = confusion_matrix(outputs, val_labels, conf_matrix)
+                value_loss += loss.item()             # 统计损失
 
 
 
@@ -176,6 +186,7 @@ def main():
                                                            epochs)
         val_accurate = acc / val_num + temp                   # 计算验证集精度
         val_acc.append(val_accurate)
+        val_loss.append(value_loss)
 
         print('[epoch %d] train_loss: %.3f  val_accuracy: %.3f' %
               (epoch + 1, running_loss / train_steps, val_accurate))
@@ -185,12 +196,18 @@ def main():
             torch.save(net.state_dict(), osp.join(model_save_path,time_for_file()+'_'+str(epoch-1)+'.pth'))       # 保存权重文件
             print_log(f'[epoch {epoch+1}] train_loss: {running_loss / train_steps:.3f}  val_accuracy: {val_accurate:.3f}',log)
         
-        log_loss=open(osp.join(log_save_root_path, time_for_file()+"_train_loss.txt"),
+        log_train_loss=open(osp.join(log_save_root_path, time_for_file()+"_train_loss.txt"),
                'w')
-        log_acc=open(osp.join(log_save_root_path, time_for_file()+"_val_acc.txt"),
+        log_train_acc=open(osp.join(log_save_root_path, time_for_file()+"_train_acc.txt"),
                'w')
-        print_log(','.join(str(x) for x in train_loss),log_loss)
-        print_log(','.join(str(x) for x in val_acc),log_acc)
+        log_val_loss=open(osp.join(log_save_root_path, time_for_file()+"_val_loss.txt"),
+               'w')
+        log_val_acc=open(osp.join(log_save_root_path, time_for_file()+"_val_acc.txt"),
+               'w')
+        print_log(','.join(str(x) for x in train_loss),log_train_loss)
+        print_log(','.join(str(x) for x in train_acc),log_train_acc)
+        print_log(','.join(str(x) for x in val_loss),log_val_loss)
+        print_log(','.join(str(x) for x in val_acc),log_val_acc)
 
 
         # 绘制损失曲线和精度曲线
