@@ -22,7 +22,10 @@ class Model(nn.Module):
         self.feature_1 = self.model_1.features          # 获取特征提取层
         self.feature_2 = self.model_2.extract_features  # 获取特征提取层
         self.avgpool = nn.AdaptiveAvgPool2d(1)          # 平均池化
-        self.dropout = nn.Dropout(0.2)                  # 随机失活
+        self.dropout = nn.Dropout(0.8)                  # 随机失活
+    ############################################## 
+    # 可修改：1,2,3见train.py
+    # 可修改4.model：类型 5.Dropout值
 
         self.fc = nn.Linear(in_features=2816,out_features=7)        # b3 : 2816  b7: 2560 + 1280 = 3840
 
@@ -53,6 +56,8 @@ class Model(nn.Module):
         # pdb.set_trace()
 
         return out
+
+
 
 
 if __name__ == '__main__':
