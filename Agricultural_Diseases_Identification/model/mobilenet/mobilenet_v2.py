@@ -1,9 +1,11 @@
 from torch import nn
-from torchvision.models.utils import load_state_dict_from_url
+import torch
+# from torchvision.models.utils import load_state_dict_from_url
 
-model_urls = {
-    'mobilenet_v2': 'https://download.pytorch.org/models/mobilenet_v2-b0353104.pth',
-}
+# model_urls = {
+#     'mobilenet_v2': 'https://download.pytorch.org/models/mobilenet_v2-b0353104.pth',
+# }
+
 
 
 def _make_divisible(v, divisor, min_value=None):
@@ -125,8 +127,11 @@ class MobileNetV2(nn.Module):
 def mobilenet_v2(pretrained=False, progress=True):
     model = MobileNetV2()
     if pretrained:
-        state_dict = load_state_dict_from_url(model_urls['mobilenet_v2'], model_dir="model_data",
-                                              progress=progress)
+        # state_dict = load_state_dict_from_url(model_urls['mobilenet_v2'], model_dir="model_data",
+        #                                       progress=progress)
+        # state_dict = load_file('./model_data/mobilenet_v2-b0353104.pth')
+
+        state_dict = torch.load("./model_data/mobilenet_v2-b0353104.pth")
         model.load_state_dict(state_dict)
 
     return model

@@ -14,6 +14,12 @@ and then move into the project directory with
 ```
 cd Identification-of-agricultural-diseases-and-pests
 ```
+When you run a resnet etc for comparison experiments, you can use a 30 series graphics card, you can configure the environment with the following command:
+
+```python
+pip3 install torch==1.10.0+cu113 torchvision==0.11.1+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html -i https://pypi.douban.com/simple
+```
+
 ## Step 3: Create a Python Environment
 
 The code requires
@@ -58,14 +64,8 @@ qid是每个问题在农医生的数据库里的id， 每个问题有0-6张照�
 json 数据网站  
 "http://www.nongyisheng.com/question/detail?fr=pc&qid=" + qid + "&rn=1"  
 
-### small_data
-Target 黄瓜靶斑病  
-Spot 黄瓜细菌性角斑病  
-Powdery 黄瓜白粉病  
-Downy 黄瓜霜霉病   
-
-
 # Repository structure
+
 ```
 ├── Agricultural_Diseases_Dentification
 │   ├── Merge_model

@@ -9,19 +9,20 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from torchvision import transforms, datasets
+from torchvision import models
 from tqdm import tqdm
 # import pdb
 import seaborn as sn
 from matplotlib import pyplot as plt
 import numpy as np
 
-from model import Model
-from model_two import Model_two
+# from model import Model
+# from model_two import Model_two
 
 import time
 
-log_save_root_path = r"./log"
-model_save_path = r'./log'
+log_save_root_path = r"../log"
+model_save_path = r'../log'
 
 
 def print_log(print_string, log):
@@ -32,7 +33,7 @@ def print_log(print_string, log):
 
 
 def time_for_file():
-    ISOTIMEFORMAT = '%d-%h-%H-%M-%S'
+    ISOTIMEFORMAT = '%d-%h-at-%H-%M-%S'
     return '{}'.format(time.strftime(ISOTIMEFORMAT, time.gmtime(time.time())))
 
 def l1_regularization(model, l1_alpha):
@@ -71,7 +72,7 @@ def main():
                                    transforms.ToTensor(),
                                    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])])}
 
-    image_path = os.path.join(r'../data')
+    image_path = os.path.join(r'../../data')
     # pdb.set_trace()
     assert os.path.exists(image_path), "{} path does not exist.".format(image_path)
     train_dataset = datasets.ImageFolder(root=os.path.join(image_path, "train"),
@@ -111,7 +112,9 @@ def main():
                'w')
 
     # create model
-    net = Model()       # 三分支
+    net = models.resnet50(pretrained=True)      # 三分支
+    net.fc=nn.Linear(in_features=net.fc.in_features,out_features=7)
+    
     # net = Model_two()   # 二分支
     net.to(device)
 
@@ -196,13 +199,13 @@ def main():
             torch.save(net.state_dict(), osp.join(model_save_path,time_for_file()+'_'+str(epoch-1)+'.pth'))       # 保存权重文件
             print_log(f'[epoch {epoch+1}] train_loss: {running_loss / train_steps:.3f}  val_accuracy: {val_accurate:.3f}',log)
         
-        log_train_loss=open(osp.join(log_save_root_path, time_for_file()+"_efficient_train_loss.txt"),
+        log_train_loss=open(osp.join(log_save_root_path, time_for_file()+"_train_loss.txt"),
                'w')
-        log_train_acc=open(osp.join(log_save_root_path, time_for_file()+"_efficient_train_acc.txt"),
+        log_train_acc=open(osp.join(log_save_root_path, time_for_file()+"_train_acc.txt"),
                'w')
-        log_val_loss=open(osp.join(log_save_root_path, time_for_file()+"__efficientval_loss.txt"),
+        log_val_loss=open(osp.join(log_save_root_path, time_for_file()+"_val_loss.txt"),
                'w')
-        log_val_acc=open(osp.join(log_save_root_path, time_for_file()+"_efficient_val_acc.txt"),
+        log_val_acc=open(osp.join(log_save_root_path, time_for_file()+"_val_acc.txt"),
                'w')
         print_log(','.join(str(x) for x in train_loss),log_train_loss)
         print_log(','.join(str(x) for x in train_acc),log_train_acc)
@@ -210,28 +213,28 @@ def main():
         print_log(','.join(str(x) for x in val_acc),log_val_acc)
 
 
-        # # 绘制损失曲线和精度曲线
-        # if epoch == (epochs -1):
-        #     from matplotlib import pyplot as plt
-        #     import numpy as np
+        # 绘制损失曲线和精度曲线
+        if epoch == (epochs -1):
+            from matplotlib import pyplot as plt
+            import numpy as np
 
-        #     x = list(range(epochs))
-        #     if len(train_loss) != 0:
-        #         plt.xlim(0, 30)
-        #         plt.xticks((np.arange(0, 32, 2)))
-        #         plt.plot(x,train_loss)
-        #         plt.xlabel("Epoch")
-        #         plt.ylabel("Train_loss")
-        #         plt.savefig('./log/'+'_'+'train_loss'+'_'+time_for_file()+'.png')
-        #         plt.close()
-        #     if len(val_acc) != 0:
-        #         plt.xlim(0, 30)
-        #         plt.xticks((np.arange(0, 32, 2)))
-        #         plt.plot(x, val_acc)
-        #         plt.xlabel("Epoch")
-        #         plt.ylabel("Acc")
-        #         plt.savefig('./log/'+'_'+'val_acc'+'_'+time_for_file()+'.png')
-        #         plt.close()
+            x = list(range(epochs))
+            if len(train_loss) != 0:
+                plt.xlim(0, 30)
+                plt.xticks((np.arange(0, 32, 2)))
+                plt.plot(x,train_loss)
+                plt.xlabel("Epoch")
+                plt.ylabel("Train_loss")
+                plt.savefig('./log/'+'_'+'train_loss'+'_'+time_for_file()+'.png')
+                plt.close()
+            if len(val_acc) != 0:
+                plt.xlim(0, 30)
+                plt.xticks((np.arange(0, 32, 2)))
+                plt.plot(x, val_acc)
+                plt.xlabel("Epoch")
+                plt.ylabel("Acc")
+                plt.savefig('./log/'+'_'+'val_acc'+'_'+time_for_file()+'.png')
+                plt.close()
 
 
 
