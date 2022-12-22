@@ -21,8 +21,8 @@ import numpy as np
 import time
 
 
-log_save_root_path = r"../log/vgg"
-model_save_path = r'../log/vgg'
+log_save_root_path = r"../log/efficient_v3"
+model_save_path = r'../log/efficient_v3'
 
 
 def print_log(print_string, log):
@@ -51,7 +51,7 @@ def l2_regularization(model, l2_alpha):
     return l2_alpha * sum(l2_loss)
 
 def main():
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")     # 判断设备
+    device = torch.device("cuda:4" if torch.cuda.is_available() else "cpu")     # 判断设备
     print("using {} device.".format(device))
 
     batch_size = 6
@@ -111,7 +111,7 @@ def main():
     log = open(osp.join(log_save_root_path, time_for_file()+".txt"),'w')
 
     # create model
-    net = models.vgg19(pretrained=True)      # 三分支
+    net = models.efficientnet_b3(pretrained=True)      # 三分支
     net.fc=nn.Linear(in_features=4096,out_features=7)
     net.to(device)
 
@@ -197,13 +197,13 @@ def main():
             torch.save(net.state_dict(), osp.join(model_save_path,time_for_file()+'_'+str(epoch-1)+'.pth'))       # 保存权重文件
             print_log(f'[epoch {epoch+1}] train_loss: {running_loss / train_steps:.3f}  val_accuracy: {val_accurate:.3f}',log)
         
-        log_train_loss=open(osp.join(log_save_root_path, time_for_file()+"_vgg_train_loss.txt"),
+        log_train_loss=open(osp.join(log_save_root_path, time_for_file()+"_efficient_v3_train_loss.txt"),
                'w')
-        log_train_acc=open(osp.join(log_save_root_path, time_for_file()+"_vgg_train_acc.txt"),
+        log_train_acc=open(osp.join(log_save_root_path, time_for_file()+"_efficient_v3_train_acc.txt"),
                'w')
-        log_val_loss=open(osp.join(log_save_root_path, time_for_file()+"_vgg_loss.txt"),
+        log_val_loss=open(osp.join(log_save_root_path, time_for_file()+"_efficient_v3_val_loss.txt"),
                'w')
-        log_val_acc=open(osp.join(log_save_root_path, time_for_file()+"_vgg_val_acc.txt"),
+        log_val_acc=open(osp.join(log_save_root_path, time_for_file()+"_efficiet_v3_val_acc.txt"),
                'w')
         print_log(','.join(str(x) for x in train_loss),log_train_loss)
         print_log(','.join(str(x) for x in train_acc),log_train_acc)
