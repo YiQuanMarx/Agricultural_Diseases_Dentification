@@ -201,7 +201,7 @@ def main():
                'w')
         log_train_acc=open(osp.join(log_save_root_path, time_for_file()+"_mobile_v3_train_acc.txt"),
                'w')
-        log_val_loss=open(osp.join(log_save_root_path, time_for_file()+"_mobile_v3_train_loss.txt"),
+        log_val_loss=open(osp.join(log_save_root_path, time_for_file()+"_mobile_v3_val_loss.txt"),
                'w')
         log_val_acc=open(osp.join(log_save_root_path, time_for_file()+"_mobile_v3_val_acc.txt"),
                'w')
