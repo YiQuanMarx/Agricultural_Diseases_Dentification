@@ -21,8 +21,8 @@ import numpy as np
 
 import time
 
-log_save_root_path = r"../log/resnet50"
-model_save_path = r'../log/resnet50'
+log_save_root_path = r"../batch_log/resnet50"
+model_save_path = r'../batch_log/resnet50'
 
 
 def print_log(print_string, log):
@@ -54,8 +54,9 @@ def main():
     device = torch.device("cuda:3" if torch.cuda.is_available() else "cpu")     # 判断设备
     print("using {} device.".format(device))
 
-    batch_size = 6
-    epochs = 300
+    # batch_size = 6
+    batch_size=16
+    epochs = 100
 
     # 数据增强
     """
@@ -136,6 +137,7 @@ def main():
     train_acc=[]
     val_acc = []
     val_loss=[]
+    min_loss_list=[]
     # pdb.set_trace()
     for epoch in range(epochs):         # 开始训练
         # train
@@ -143,11 +145,13 @@ def main():
         acc_train = 0.0 
         running_loss = 0.0
         train_bar = tqdm(train_loader)
+        min_loss=1e6     
         for step, data in enumerate(train_bar):     # 遍历数据集
             images, labels = data
             optimizer.zero_grad()
             logits = net(images.to(device))
             loss = loss_function(logits, labels.to(device))     # 计算损失
+            min_loss=min(min_loss,loss.item())
             # loss = (loss - 140).abs() + 140 # This is it!
             predict=torch.max(logits,dim=1)[1]
             acc_train+=torch.eq(predict,labels.to(device)).sum().item()
@@ -163,6 +167,8 @@ def main():
             train_bar.desc = "train epoch[{}/{}] loss:{:.3f}".format(epoch + 1,
                                                                      epochs,
                                                                      loss)
+        min_loss_list.append(min_loss)
+        print("min_loss_list={}\n".format(min_loss_list))
         train_loss.append(running_loss)
         train_acc.append(acc_train/train_num)
 

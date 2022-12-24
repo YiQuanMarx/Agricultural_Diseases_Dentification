@@ -21,8 +21,8 @@ import numpy as np
 import time
 
 
-log_save_root_path = r"../log/efficient_v7"
-model_save_path = r'../log/efficient_v7'
+log_save_root_path = r"../batch_log/efficient_v7"
+model_save_path = r'../batch_log/efficient_v7'
 
 
 def print_log(print_string, log):
@@ -51,11 +51,11 @@ def l2_regularization(model, l2_alpha):
     return l2_alpha * sum(l2_loss)
 
 def main():
-    device = torch.device("cuda:5" if torch.cuda.is_available() else "cpu")     # 判断设备
+    device = torch.device("cuda:7" if torch.cuda.is_available() else "cpu")     # 判断设备
     print("using {} device.".format(device))
 
-    batch_size = 6
-    epochs = 300
+    batch_size = 8
+    epochs = 100
 
     # 数据增强
     """
@@ -112,7 +112,8 @@ def main():
 
     # create model
     net = models.efficientnet_b7(pretrained=True)      # 三分支
-    net.fc=nn.Linear(in_features=4096,out_features=7)
+    # net.fc=nn.Linear(in_features=4096,out_features=7)
+    net.fc=nn.Linear(in_features=2560,out_features=7)
     net.to(device)
 
     # define loss function
@@ -134,6 +135,7 @@ def main():
     train_acc=[]
     val_acc = []
     val_loss=[]
+    min_loss_list=[]
     # pdb.set_trace()
     for epoch in range(epochs):         # 开始训练
         # train
@@ -141,11 +143,13 @@ def main():
         acc_train = 0.0 
         running_loss = 0.0
         train_bar = tqdm(train_loader)
+        min_loss=1e6
         for step, data in enumerate(train_bar):     # 遍历数据集
             images, labels = data
             optimizer.zero_grad()
             logits = net(images.to(device))
             loss = loss_function(logits, labels.to(device))     # 计算损失
+            min_loss=min(min_loss,loss.item())
             predict=torch.max(logits,dim=1)[1]
             acc_train+=torch.eq(predict,labels.to(device)).sum().item()
 
@@ -160,6 +164,8 @@ def main():
             train_bar.desc = "train epoch[{}/{}] loss:{:.3f}".format(epoch + 1,
                                                                      epochs,
                                                                      loss)
+        min_loss_list.append(min_loss)
+        print("min_loss_list={}\n".format(min_loss_list))
         train_loss.append(running_loss)
         train_acc.append(acc_train/train_num)
 
