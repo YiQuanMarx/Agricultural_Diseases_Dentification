@@ -76,6 +76,11 @@ json 数据网站
 │         ├── efficientnet-b7-dcc49843.pth
 │         ├── mobilenet_v2-b0353104.pth
 │      ├── log
+│      ├── batch_log
+│      ├── batch_model
+│      ├── Improve_log
+│      ├── Improve_model
+│      ├── compare_model
 │      ├── class_indices.json
 │      ├── Demo_Efficientnet.py
 │      ├── ECAAttention.py
