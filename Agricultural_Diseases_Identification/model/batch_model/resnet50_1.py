@@ -21,8 +21,8 @@ import numpy as np
 
 import time
 
-log_save_root_path = r"../batch_log/resnet50"
-model_save_path = r'../batch_log/resnet50'
+log_save_root_path = r"../batch_log/resnet50_1"
+model_save_path = r'../batch_log/resnet50_1'
 
 
 def print_log(print_string, log):
@@ -55,7 +55,7 @@ def main():
     print("using {} device.".format(device))
 
     # batch_size = 6
-    batch_size=16
+    batch_size=3
     epochs = 100
 
     # 数据增强

@@ -148,6 +148,7 @@ def main():
             optimizer.zero_grad()
             logits = net(images.to(device))
             loss = loss_function(logits, labels.to(device))     # 计算损失
+            # loss = (loss - 140).abs() + 140 # This is it!
             predict=torch.max(logits,dim=1)[1]
             acc_train+=torch.eq(predict,labels.to(device)).sum().item()
 

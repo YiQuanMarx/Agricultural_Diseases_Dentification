@@ -21,8 +21,8 @@ import numpy as np
 import time
 
 
-log_save_root_path = r"../batch_log/efficient_v3"
-model_save_path = r'../batch_log/efficient_v3'
+log_save_root_path = r"../batch_log/efficient_v3_1"
+model_save_path = r'../batch_log/efficient_v3_1'
 
 
 def print_log(print_string, log):
@@ -54,7 +54,7 @@ def main():
     device = torch.device("cuda:4" if torch.cuda.is_available() else "cpu")     # 判断设备
     print("using {} device.".format(device))
 
-    batch_size = 16
+    batch_size = 3
     epochs = 100
 
     # 数据增强

@@ -53,7 +53,8 @@ def l2_regularization(model, l2_alpha):
 def main():
     device = torch.device("cuda:7" if torch.cuda.is_available() else "cpu")     # 判断设备
     print("using {} device.".format(device))
-
+    
+    # batch只能到8
     batch_size = 8
     epochs = 100
 

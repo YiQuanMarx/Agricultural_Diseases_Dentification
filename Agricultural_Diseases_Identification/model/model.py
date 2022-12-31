@@ -8,16 +8,16 @@ from efficientnet  import EfficientNet
 class Model(nn.Module):
     def __init__(self):
         super(Model, self).__init__()
-        #self.model_1 = models.mobilenet_v2(pretrained=True)
-        self.model_1 = mobilenet_v2(pretrained=True)
-        #self.model_2 = EfficientNet.from_name('efficientnet-b3')
+   
+        self.model_1 = models.mobilenet_v3_large(pretrained=True)
+        
         self.model_2 = EfficientNet.from_name('efficientnet-b3')      # 1536
         self.weight = torch.load(r'./model_data/efficientnet-b3-5fb5a3c3.pth')
         self.state = { k:v for k ,v in self.weight.items() if k in self.model_2.state_dict().keys()}
         excepttion,unexception =  self.model_2.load_state_dict(self.state,strict=False)
         print("exception:",excepttion)
         print("unexception:",unexception)
-        #self.model_2.load_state_dict(torch.load('./efficientnet-b7-dcc49843.pth'))         # 2560
+        # self.model_2 = models.resnet50(pretrained=True)
 
         self.feature_1 = self.model_1.features          # 获取特征提取层
         self.feature_2 = self.model_2.extract_features  # 获取特征提取层
@@ -27,7 +27,9 @@ class Model(nn.Module):
     # 可修改：1,2,3见train.py
     # 可修改4.model：类型 5.Dropout值
 
-        self.fc = nn.Linear(in_features=2816,out_features=7)        # b3 : 2816  b7: 2560 + 1280 = 3840
+        # self.fc = nn.Linear(in_features=2816,out_features=7)        # b3 : 2816  b7: 2560 + 1280 = 3840
+        self.fc = nn.Linear(in_features=2496,out_features=7)   
+        # b3 1536  mobile v2:1280 mobile resnet:2048 mobile_v3：1280
 
     def forward(self,input):
         # pdb.set_trace()

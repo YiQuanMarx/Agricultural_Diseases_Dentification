@@ -55,7 +55,7 @@ def main():
     print("using {} device.".format(device))
 
     batch_size = 6
-    epochs = 300
+    epochs = 100
 
     # 数据增强
     """
@@ -111,7 +111,7 @@ def main():
     log = open(osp.join(log_save_root_path, time_for_file()+".txt"),'w')
 
     # create model
-    net = models.vgg19(pretrained=True)      # 三分支
+    net = models.mobilenet_v3_large(pretrained=True)      # 三分支
     net.fc=nn.Linear(in_features=4096,out_features=7)
     net.to(device)
 
@@ -160,6 +160,7 @@ def main():
             train_bar.desc = "train epoch[{}/{}] loss:{:.3f}".format(epoch + 1,
                                                                      epochs,
                                                                      loss)
+            # pdb.set_trace()
         train_loss.append(running_loss)
         train_acc.append(acc_train/train_num)
 

@@ -20,8 +20,8 @@ from model_two import Model_two
 
 import time
 
-log_save_root_path = r"./log"
-model_save_path = r'./log'
+log_save_root_path = r"./Improve_log/combine_model/6epoch_standard"
+model_save_path = r'./Improve_log/combine_model/6epoch_standard'
 
 
 def print_log(print_string, log):
@@ -50,11 +50,11 @@ def l2_regularization(model, l2_alpha):
     return l2_alpha * sum(l2_loss)
 
 def main():
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")     # 判断设备
+    device = torch.device("cuda:6" if torch.cuda.is_available() else "cpu")     # 判断设备
     print("using {} device.".format(device))
 
     batch_size = 6
-    epochs = 300
+    epochs = 100
 
     # 数据增强
     """
@@ -133,6 +133,7 @@ def main():
     train_acc=[]
     val_acc = []
     val_loss=[]
+    min_loss_list=[]
     # pdb.set_trace()
     for epoch in range(epochs):         # 开始训练
         # train
@@ -140,11 +141,13 @@ def main():
         acc_train = 0.0 
         running_loss = 0.0
         train_bar = tqdm(train_loader)
+        min_loss=1e6  
         for step, data in enumerate(train_bar):     # 遍历数据集
             images, labels = data
             optimizer.zero_grad()
             logits = net(images.to(device))
             loss = loss_function(logits, labels.to(device))     # 计算损失
+            min_loss=min(min_loss,loss.item())
             predict=torch.max(logits,dim=1)[1]
             acc_train+=torch.eq(predict,labels.to(device)).sum().item()
 
@@ -159,6 +162,8 @@ def main():
             train_bar.desc = "train epoch[{}/{}] loss:{:.3f}".format(epoch + 1,
                                                                      epochs,
                                                                      loss)
+        min_loss_list.append(min_loss)
+        print("min_loss_list={}\n".format(min_loss_list))
         train_loss.append(running_loss)
         train_acc.append(acc_train/train_num)
 
@@ -196,14 +201,17 @@ def main():
             torch.save(net.state_dict(), osp.join(model_save_path,time_for_file()+'_'+str(epoch-1)+'.pth'))       # 保存权重文件
             print_log(f'[epoch {epoch+1}] train_loss: {running_loss / train_steps:.3f}  val_accuracy: {val_accurate:.3f}',log)
         
-        log_train_loss=open(osp.join(log_save_root_path, time_for_file()+"_efficient_train_loss.txt"),
+        log_train_loss=open(osp.join(log_save_root_path, time_for_file()+"_efficient_model_train_loss.txt"),
                'w')
-        log_train_acc=open(osp.join(log_save_root_path, time_for_file()+"_efficient_train_acc.txt"),
+        log_train_acc=open(osp.join(log_save_root_path, time_for_file()+"_efficient_model_train_acc.txt"),
                'w')
-        log_val_loss=open(osp.join(log_save_root_path, time_for_file()+"__efficientval_loss.txt"),
+        log_val_loss=open(osp.join(log_save_root_path, time_for_file()+"_efficient_model_val_loss.txt"),
                'w')
-        log_val_acc=open(osp.join(log_save_root_path, time_for_file()+"_efficient_val_acc.txt"),
+        log_val_acc=open(osp.join(log_save_root_path, time_for_file()+"_efficient_model_val_acc.txt"),
                'w')
+        log_min_loss=open(osp.join(log_save_root_path, time_for_file()+"_efficiet_v3_min_loss.txt"),
+               'w')
+        print_log(','.join(str(x) for x in min_loss_list),log_min_loss)
         print_log(','.join(str(x) for x in train_loss),log_train_loss)
         print_log(','.join(str(x) for x in train_acc),log_train_acc)
         print_log(','.join(str(x) for x in val_loss),log_val_loss)
