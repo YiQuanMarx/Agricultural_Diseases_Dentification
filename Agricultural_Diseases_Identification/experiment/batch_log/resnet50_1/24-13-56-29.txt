@@ -1,0 +1,1 @@
+[epoch 1] train_loss: 1.763  val_accuracy: 0.601

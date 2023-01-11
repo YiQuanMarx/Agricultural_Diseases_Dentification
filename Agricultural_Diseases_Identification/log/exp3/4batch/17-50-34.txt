@@ -1,0 +1,11 @@
+[epoch 1] train_loss: 2.862  val_accuracy: 0.595
+[epoch 2] train_loss: 1.632  val_accuracy: 0.649
+[epoch 4] train_loss: 1.366  val_accuracy: 0.663
+[epoch 5] train_loss: 1.300  val_accuracy: 0.704
+[epoch 8] train_loss: 1.162  val_accuracy: 0.736
+[epoch 10] train_loss: 1.082  val_accuracy: 0.747
+[epoch 12] train_loss: 1.032  val_accuracy: 0.765
+[epoch 13] train_loss: 1.002  val_accuracy: 0.767
+[epoch 15] train_loss: 0.957  val_accuracy: 0.772
+[epoch 17] train_loss: 0.900  val_accuracy: 0.796
+[epoch 30] train_loss: 0.698  val_accuracy: 0.800
