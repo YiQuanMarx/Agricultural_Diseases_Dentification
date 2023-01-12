@@ -38,7 +38,7 @@ The code requires
 
 In order to download the dataset, download it in: https://pan.baidu.com/s/1PIMFdJxT5ZoVAWDGpA9kSQ?pwd=xj39 
 
-### big_data
+### data
 dm = downy mildew, 霜霉病  
 pm = powdery mildew, 白粉病  
 als = bacterial angular leaf spot, 细菌性角斑病  
