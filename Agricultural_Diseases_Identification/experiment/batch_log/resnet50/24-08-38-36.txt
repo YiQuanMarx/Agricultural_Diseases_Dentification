@@ -1,2 +1,0 @@
-[epoch 1] train_loss: 1.710  val_accuracy: 0.579
-[epoch 2] train_loss: 1.629  val_accuracy: 0.596
