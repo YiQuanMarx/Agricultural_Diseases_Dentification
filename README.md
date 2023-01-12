@@ -24,15 +24,15 @@ pip3 install torch==1.10.0+cu113 torchvision==0.11.1+cu113 -f https://download.p
 
 The code requires
 
-* Cuda:10.1
+* Cuda:11.3
 
 * Python 3.8.1
 
-* [PyTorch](https://github.com/pytorch/vision):The linker is the corresponding torchvision versions and supported Python versions.The code use torch version 1.5.1
-
-* torchvision:version->0.4.0~0.7.0.And the code use version 0.6.1.You can use the version information below as a download reference.
-
   ![imag-1](./pic/pic.png)
+
+  ```python
+  pip3 install torch==1.10.0+cu113 torchvision==0.11.1+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html -i https://pypi.douban.com/simple
+  ```
 
 ### Step 4: Download the Dataset
 
@@ -68,30 +68,32 @@ json 数据网站
 
 ```
 ├── Agricultural_Diseases_Dentification
-│   ├── Merge_model
-│      ├── mobilenet
-│         ├── mobilenet_v2.py
-│      ├── model_data
-│         ├── efficientnet-b3-5fb5a3c3.pth
-│         ├── efficientnet-b7-dcc49843.pth
-│         ├── mobilenet_v2-b0353104.pth
-│      ├── log
-│      ├── batch_log
-│      ├── batch_model
-│      ├── Improve_log
-│      ├── Improve_model
-│      ├── compare_model
-│      ├── class_indices.json
-│      ├── Demo_Efficientnet.py
-│      ├── ECAAttention.py
-│      ├── efficientnet.py
-│      ├── main.py
-│      ├── model.py
-│      ├── model_two.py
-│      ├── split_train_val.py
-│      ├── train.py
-│   ├── All_data
+│   ├── draw_pic
+│   ├── experiment
+│      ├── exp1_model
+│      ├── exp2_optimizer
+│      ├── exp3_batch
+│      ├── exp4_flooding
+│   ├── log
+│      ├── exp1
+│      ├── exp2
+│      ├── exp3
+│      ├── exp4
+│   ├── data
 │      ├── train
+│         ├── als
+│         ├── an
+│         ├── dm
+│         ├── fw
+│         ├── gsb
+│         ├── pm
+│         ├── tls
 │      ├── val
-├── README.md
+│         ├── als
+│         ├── an
+│         ├── dm
+│         ├── fw
+│         ├── gsb
+│         ├── pm
+│         ├── tls
 ```
