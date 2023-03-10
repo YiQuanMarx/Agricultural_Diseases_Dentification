@@ -39,8 +39,8 @@ dm = downy mildew,  http://www.nongyisheng.com/nongzi?id=uoktntj
 pm = powdery mildew,  http://www.nongyisheng.com/nongzi?id=uizygcc  
 als = bacterial angular leaf spot,  http://www.nongyisheng.com/nongzi?id=uizezsy  
 tls = target leaf spot, http://www.nongyisheng.com/nongzi?id=uuwhllf   
-gsb = gummy stem blight, http://www.nongyisheng.com/nongzi?id=uoktbkk
-fw = fusarium wilt,  http://www.nongyisheng.com/nongzi?id=uokqdkq 
+gsb = gummy stem blight, http://www.nongyisheng.com/nongzi?id=uoktbkk  
+fw = fusarium wilt,  http://www.nongyisheng.com/nongzi?id=uokqdkq  
 an = anthracnose,  http://www.nongyisheng.com/nongzi?id=uuwhrhl  
 
 Website：  
