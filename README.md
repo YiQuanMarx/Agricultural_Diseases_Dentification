@@ -34,7 +34,7 @@ The code requires
   ```
 
 ## Data
-### Point1:Data Source
+### Point 1: Data Source
 dm = downy mildew,  http://www.nongyisheng.com/nongzi?id=uoktntj  
 pm = powdery mildew,  http://www.nongyisheng.com/nongzi?id=uizygcc  
 als = bacterial angular leaf spot,  http://www.nongyisheng.com/nongzi?id=uizezsy  
@@ -48,11 +48,11 @@ Website：
 Json  Data Website
 "http://www.nongyisheng.com/question/detail?fr=pc&qid=" + qid + "&rn=1"  
 
-### Point2:Image naming method 
+### Point 2: Image naming method 
 
 qid_num.jpg:  
 qid is the id of each question in Dr. Farmer's database. Each question has 0-6 photos such as '576669_2.jpg'  
-### Point3:Other Data in Our Experiment
+### Point 3: Other Data in Our Experiment
 Plant Village:[[Data](https://aistudio.baidu.com/aistudio/datasetdetail/76075)] [[Code](https://github.com/spMohanty/PlantVillage-Dataset)]   
 Apple:[[Data](https://aistudio.baidu.com/aistudio/datasetdetail/11591)][[Paper](https://cdmd.cnki.com.cn/Article/CDMD-10712-1019901670.htm)]
 ## Repository structure
