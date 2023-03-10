@@ -3,7 +3,7 @@ write_version/
 draw_pic/
 data/
 log/
-pic/
 dataset.md
 **/.DS_Store
 !pic/pic.png
+pic/picture/
