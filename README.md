@@ -48,8 +48,7 @@ Website：
 Json  Data Website
 "http://www.nongyisheng.com/question/detail?fr=pc&qid=" + qid + "&rn=1"  
 
-### Point 2: Image naming method 
-
+### Point 2: Image Naming Method 
 qid_num.jpg:  
 qid is the id of each question in Dr. Farmer's database. Each question has 0-6 photos such as '576669_2.jpg'  
 ### Point 3: Other Data in Our Experiment
