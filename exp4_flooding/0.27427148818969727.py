@@ -178,7 +178,6 @@ def main():
         acc = 0.0  # accumulate accurate number / epoch
         value_loss= 0.0
         conf_matrix = torch.zeros(4, 4)  # 设置类别
-        temp = random.uniform(0.2,0.25)
         with torch.no_grad():
             val_bar = tqdm(validate_loader)
             for val_data in val_bar:
@@ -195,7 +194,7 @@ def main():
 
                 val_bar.desc = "valid epoch[{}/{}]".format(epoch + 1,
                                                            epochs)
-        val_accurate = acc / val_num + temp                   # 计算验证集精度
+        val_accurate = acc / val_num                  # 计算验证集精度
         val_acc.append(val_accurate)
         val_loss.append(value_loss)
 
