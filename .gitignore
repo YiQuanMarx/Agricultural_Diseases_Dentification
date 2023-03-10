@@ -6,3 +6,4 @@ log/
 pic/
 dataset.md
 .gitignore
+.DS_Store
