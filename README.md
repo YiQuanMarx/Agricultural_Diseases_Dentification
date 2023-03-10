@@ -34,10 +34,6 @@ The code requires
   pip3 install torch==1.10.0+cu113 torchvision==0.11.1+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html -i https://pypi.douban.com/simple
   ```
 
-### Step 4: Download the Dataset
-
-In order to download the dataset, download it in: https://pan.baidu.com/s/1PIMFdJxT5ZoVAWDGpA9kSQ?pwd=xj39 
-
 ### data
 dm = downy mildew, 霜霉病  
 pm = powdery mildew, 白粉病  
