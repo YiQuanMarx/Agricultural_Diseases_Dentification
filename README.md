@@ -1,4 +1,4 @@
-# dentification-of-agricultural-diseases-and-pests 
+# Agricultural_Diseases_Dentification
  农业病虫害识别
 
 ## Steps To Run the Code
