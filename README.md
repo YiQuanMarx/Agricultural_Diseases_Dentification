@@ -11,7 +11,7 @@ git clone https://github.com/YiQuanMarx/Agricultural_Diseases_Dentification.git
 ```
 and then move into the project directory with
 ```
-cd Identification-of-agricultural-diseases-and-pests
+cd Agricultural_Diseases_Dentification
 ```
 When you run a resnet etc for comparison experiments, you can use a 30 series graphics card, you can configure the environment with the following command:
 
